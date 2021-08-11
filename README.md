@@ -1,6 +1,7 @@
 # 📖 Présentation
 **IPAtools** est un petit programme python qui permet d'exporter une archive [**Xcode**](https://developer.apple.com/xcode/) en fichier .ipa (compatible iOS) rapidement.
-Le programme est uniquement compatible [**MacOS**](https://apple.com/fr/macos/)
+Le programme est uniquement compatible [**MacOS**](https://apple.com/fr/macos
+/)
 
 # Utilisation
 Lancer le programme dans un terminal :
@@ -25,6 +26,7 @@ Glisser le fichier .ipa
 <img src="ex/ex4.png"></img>
 
 Un dossier apparaitra sur votre bureau avec dedans le fichier décompressé :
+
 <img src="ex/ex5.png" width=90px></img>
 
 # 📎 Autres...
