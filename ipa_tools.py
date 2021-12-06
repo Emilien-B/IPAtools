@@ -60,7 +60,7 @@ else:
     os.system("mv Runner.app Payload")
 
     # Create the .ipa file
-    os.system("tar -cf " + name+".ipa Payload")
+    os.system("zip -ru " + name+".ipa Payload")
 
     # Define the old file structure
     os.system("mv Payload/Runner.app Runner.app")
