@@ -1,4 +1,5 @@
 import os
+from rich import print
 
 # Print the title
 print("""
@@ -10,34 +11,32 @@ print("""
     ██║██║     ██║  ██║       ██║   ╚██████╔╝╚██████╔╝███████╗███████║
     ╚═╝╚═╝     ╚═╝  ╚═╝       ╚═╝    ╚═════╝  ╚═════╝ ╚══════╝╚══════╝
 
-GitHub : https://github.com/Emilien-B/IPAtools
-By Emilien BARDE (https://twitter.com/emilien_barde)
+[bold]GitHub[/bold] : https://github.com/Emilien-B/IPAtools
+By [bold]Emilien BARDE[/bold] (https://twitter.com/emilien_barde)
 """)
 
-path = ""
-while path == "":
-    path = input("Drag and drop the file ")
+print("""
+1. Exporter a file .ipa
+2. Décompresser a file .ipa
+3. CRéer un fichier .plist de téléchargement
 
+""")
+choose = int(input("Enter a number..."))
+path_desktop = ""
+# a = input("Drag and drop the file ")
+a = ""
+
+def check_path(a):
     # Check the path
     try:
-        path_desktop = str("/"+path.split("/")[1]+"/"+path.split("/")[2]+"/Desktop")
+        path_desktop = str("/"+a.split("/")[1]+"/"+a.split("/")[2]+"/Desktop")
+        return path_desktop
     except:
         print("Invalid path")
-        path = ""
+        return False
 
-if path.find(".ipa") >= 1:
-
-    # Create a folder with the file's name
-    os.chdir(path_desktop+"/IPA Export")
-    name = path.split(".ipa")[0].split("/")
-    name = name[len(name)-1]
-    os.mkdir(name)
-    os.chdir(name)
-
-    # Unzip the file
-    os.system("tar -xf " + path)
-
-else:
+if choose==1:
+    choose_path()
     name = input("Enter a name for your file ")
 
     # Check the name
@@ -73,6 +72,22 @@ else:
     except:
         pass
     os.system("mv "+ path + "/" + name+".ipa " + path_desktop+"/IPA\ Export")
+
+if choose==2:
+    path = input("Drag and drop the file ")
+    print(check_path(path))
+    while check_path(path) == False:
+        path = input("Drag and drop the file ")
+    
+    # Create a folder with the file's name
+    os.chdir(path_desktop+"/IPA Export")
+    name = path.split(".ipa")[0].split("/")
+    name = name[len(name)-1]
+    os.mkdir(name)
+    os.chdir(name)
+
+    # Unzip the file
+    os.system("tar -xf " + path)
 
 # Open the folder
 os.system("open " + path_desktop+"/IPA\ Export")
