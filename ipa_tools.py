@@ -1,4 +1,5 @@
 import os
+import subprocess
 from rich import print
 # os.system('clear')
 # Print the title
@@ -24,14 +25,19 @@ print("""
 choose = int(input('Enter a number...'))
 
 
+path_desktop = str(subprocess.check_output("pwd", shell=True)).replace("b'",'').replace(u"\x5cn'",'')
+path_desktop = str('/'+path_desktop.split('/')[1]+'/'+path_desktop.split('/')[2]+'/Desktop')
+
+def check_name_file(name):
+    return not name.count('.')>=1 or name.count('/')>=1 or name.count(u'\x5c')>=1
+
 def check_path(a):
-    # Check the path
     try:
-        path_desktop = str('/'+a.split('/')[1]+'/'+a.split('/')[2]+'/Desktop')
-        return path_desktop
+        open(a, 'r')
+        return True
     except:
-        print('Invalid path')
         return False
+
 
 if choose==1:
 
@@ -39,16 +45,19 @@ if choose==1:
 
     # Check the path
     while check_path(path) == False:
+        print('Invalid path')
         path = input('Drag and drop the file ')
     
-    # ???
-    path_desktop = check_path(path)
+    while path.count('.xcarchive') == 0:
+        print('Invalid file')
+        path = input('Drag and drop the file ')
+    
 
     name = input('Enter a name for your file ')
 
     # Check the name
     name = str(name)
-    while name.count('.')>=1 or name.count('/')>=1 or name.count(u'\x5c')>=1:
+    while check_name_file(name) == False:
         print('Invalid name')
         name = input('Enter a name for your file ')
 
@@ -80,10 +89,14 @@ if choose==2:
 
     # Check the path
     while check_path(path) == False:
+        print("Invalid path")
         path = input('Drag and drop the file ')
-    
-    # ???
-    path_desktop = check_path(path)
+
+    while path.count('.ipa') == 0:
+        print('Invalid file')
+        path = input('Drag and drop the file ')
+
+
 
     # Create a folder with the file's name
     os.chdir(path_desktop+'/IPA Export')
@@ -105,67 +118,71 @@ if choose == 3:
     bundle_identifier = str(input('Enter the bundle identifier '))
     while bundle_identifier=="":
         bundle_identifier = str(input('Enter the bundle identifier '))
+
     bundle_version = str(input('Enter the bundle version '))
-    def check_bundle_version(bundle_version):
-        for a in bundle_version.split('.'):
-            try:
-                a = int(a)
-            except:
-                print('Invalid bundle version')
-                break
-            return True
-    while check_bundle_version(bundle_version) != True:
+   
+    while bundle_version.replace('.','').isdigit() == False:
+        print('Invalid bundke version')
         bundle_version = str(input('Enter the bundle version '))
 
     title = str(input('Enter the title '))
-    while title.count('.')>=1 or title.count('/')>=1 or title.count(u'\x5c')>=1:
+    while check_name_file(title) == False:
         print('Invalid title')
         title = str(input('Enter the title '))
 
-    """
-    <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0">
-<dict>
-    <key>items</key>
-    <array>
-        <dict>
-            <key>assets</key>
-            <array>
-                <dict>
-                    <key>kind</key>
-                    <string>software-package</string>
-                    <key>url</key>
-                    <string>http://YOUR_SERVER_URL/YOUR-IPA-FILE.ipa</string>
-                </dict>
-            </array>
-            <key>metadata</key>
+    plist_file =   """<?xml version="1.0" encoding="UTF-8"?>
+    <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+    <plist version="1.0">
+    <dict>
+        <key>items</key>
+        <array>
             <dict>
-                <key>bundle-identifier</key>
-                <string>com.yourCompany.productName</string>
-                <key>bundle-version</key>
-                <string>1.0.0</string>
-                <key>kind</key>
-                <string>software</string>
-                <key>title</key>
-                <string>YOUR APP NAME</string>
+                <key>assets</key>
+                <array>
+                    <dict>
+                        <key>kind</key>
+                        <string>software-package</string>
+                        <key>url</key>
+                        <string>"""+ url +"""</string>
+                    </dict>
+                </array>
+                <key>metadata</key>
+                <dict>
+                    <key>bundle-identifier</key>
+                    <string>"""+ bundle_identifier +"""</string>
+                    <key>bundle-version</key>
+                    <string>"""+ bundle_version +"""</string>
+                    <key>kind</key>
+                    <string>software</string>
+                    <key>title</key>
+                    <string>"""+ title +"""</string>
+                </dict>
             </dict>
-        </dict>
-    </array>
-</dict>
-</plist>
-"""
+        </array>
+    </dict>
+    </plist>"""
+
+    name = input('Enter a name for your file ')
+
+    # Check the name
+    name = str(name)
+    while check_name_file(name) == False:
+        print('Invalid name')
+        name = input('Enter a name for your file ')
     
+    file = open(path_desktop+'/IPA Export/'+name+".plist", 'w')
+    file.write(plist_file)
+    file.close()
 
 if choose == 4:
-    os.system("open https://github.com/Emilien-B/IPAtools")
-    os.system("clear")
-    print("Finished")
+    os.system('open https://github.com/Emilien-B/IPAtools')
+    os.system('clear')
+    print('Finished')
     quit()
 
 # Open the folder
-os.system("open " + path_desktop+"/IPA\ Export")
+os.system('open ' + path_desktop+'/IPA\ Export')
 
-os.system("clear")
-print("Finished")
+os.system('clear')
+print('Finished')
 
