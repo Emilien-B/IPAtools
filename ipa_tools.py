@@ -47,12 +47,7 @@ if choose==1:
     name = input("Enter a name for your file ")
 
     # Check the name
-    try: 
-        name = str(name)
-    except:
-        print("Invalid name")
-        name = input("Enter a name for your file ")
-
+    name = str(name)
     while name.count(".")>1 or name.count("/")>1 or name.count(u"\x5c")>1:
         print("Invalid name")
         name = input("Enter a name for your file ")
@@ -99,6 +94,64 @@ if choose==2:
 
     # Unzip the file
     os.system("tar -xf " + path)
+
+if choose == 3:
+
+    url = str(input("Enter a URL "))
+    while url.count("http")==0 or url.count("://")==0:
+        print("Invalid URL")
+        url = input("Enter a URL ")
+    
+    bundle_identifier = str(input("Enter the bundle identifier "))
+    bundle_version = str(input("Enter the bundle version "))
+    def check_bundle_version(a):
+        for a in bundle_version.split('.'):
+            try:
+                a = int(a)
+            except:
+                print("Invalid bundle version")
+                return False
+                break
+            return True
+    while check_bundle_version(bundle_version) == False:
+        bundle_version = str(input("Enter the bundle version "))
+
+    title =""
+    """
+    <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>items</key>
+    <array>
+        <dict>
+            <key>assets</key>
+            <array>
+                <dict>
+                    <key>kind</key>
+                    <string>software-package</string>
+                    <key>url</key>
+                    <string>http://YOUR_SERVER_URL/YOUR-IPA-FILE.ipa</string>
+                </dict>
+            </array>
+            <key>metadata</key>
+            <dict>
+                <key>bundle-identifier</key>
+                <string>com.yourCompany.productName</string>
+                <key>bundle-version</key>
+                <string>1.0.0</string>
+                <key>kind</key>
+                <string>software</string>
+                <key>title</key>
+                <string>YOUR APP NAME</string>
+            </dict>
+        </dict>
+    </array>
+</dict>
+</plist>
+"""
+    
+
 if choose == 4:
     os.system("open https://github.com/Emilien-B/IPAtools")
     os.system("clear")
