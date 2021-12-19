@@ -2,7 +2,7 @@ import os
 import subprocess
 from rich import print
 
-# os.system('clear')
+os.system('clear')
 
 # Print the title
 print("""
@@ -26,7 +26,7 @@ print("""
 """)
 choose = int(input('Enter a number...'))
 
-
+# Get the path of the desktop
 path_desktop = str(subprocess.check_output("pwd", shell=True)).replace("b'",'').replace(u"\x5cn'",'')
 path_desktop = str('/'+path_desktop.split('/')[1]+'/'+path_desktop.split('/')[2]+'/Desktop')
 
