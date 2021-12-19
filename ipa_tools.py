@@ -1,7 +1,9 @@
 import os
 import subprocess
 from rich import print
+
 # os.system('clear')
+
 # Print the title
 print("""
 
@@ -33,14 +35,21 @@ def check_name_file(name):
 
 def check_path(a):
     try:
-        open(a, 'r')
+        a = a.strip().replace(u"\x5cn'",'')
         return True
     except:
         return False
 
+def create_folder():
+    # Create the IPAtools-exports directory
+    try:
+        os.chdir(path_desktop)
+        os.mkdir('IPAtools-exports')
+    except:
+        pass
 
 if choose==1:
-
+    create_folder()
     path = input('Drag and drop the file ')
 
     # Check the path
@@ -77,14 +86,10 @@ if choose==1:
     os.rmdir('Payload')
     os.chdir(path_desktop)
 
-    # Create the IPA Export directory
-    try:
-        os.mkdir('IPA Export')
-    except:
-        pass
-    os.system('mv '+ path + '/' + name+'.ipa ' + path_desktop+'/IPA\ Export')
+    os.system('mv '+ path + '/' + name+'.ipa ' + path_desktop+'/IPAtools-exports')
 
 if choose==2:
+    create_folder()
     path = input('Drag and drop the file ')
 
     # Check the path
@@ -96,10 +101,8 @@ if choose==2:
         print('Invalid file')
         path = input('Drag and drop the file ')
 
-
-
     # Create a folder with the file's name
-    os.chdir(path_desktop+'/IPA Export')
+    os.chdir(path_desktop+'/IPAtools-exports')
     name = path.split('.ipa')[0].split('/')
     name = name[len(name)-1]
     os.mkdir(name)
@@ -109,7 +112,7 @@ if choose==2:
     os.system('tar -xf ' + path)
 
 if choose == 3:
-
+    create_folder()
     url = str(input('Enter a URL '))
     while url.count('http')==0 or url.count('://')==0 or url.count('.ipa')==0:
         print('Invalid URL')
@@ -122,7 +125,7 @@ if choose == 3:
     bundle_version = str(input('Enter the bundle version '))
    
     while bundle_version.replace('.','').isdigit() == False:
-        print('Invalid bundke version')
+        print('Invalid bundle version')
         bundle_version = str(input('Enter the bundle version '))
 
     title = str(input('Enter the title '))
@@ -170,7 +173,7 @@ if choose == 3:
         print('Invalid name')
         name = input('Enter a name for your file ')
     
-    file = open(path_desktop+'/IPA Export/'+name+".plist", 'w')
+    file = open(path_desktop+'/IPAtools-exports/'+name+".plist", 'w')
     file.write(plist_file)
     file.close()
 
@@ -181,7 +184,7 @@ if choose == 4:
     quit()
 
 # Open the folder
-os.system('open ' + path_desktop+'/IPA\ Export')
+os.system('open ' + path_desktop+'/IPAtools-exports')
 
 os.system('clear')
 print('Finished')
