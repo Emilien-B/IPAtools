@@ -1,6 +1,6 @@
 import os
 from rich import print
-os.system("clear")
+# os.system('clear')
 # Print the title
 print("""
 
@@ -21,102 +21,107 @@ print("""
 4. Accéder au projet sur GitHub
 
 """)
-choose = int(input("Enter a number..."))
+choose = int(input('Enter a number...'))
 
 
 def check_path(a):
     # Check the path
     try:
-        path_desktop = str("/"+a.split("/")[1]+"/"+a.split("/")[2]+"/Desktop")
+        path_desktop = str('/'+a.split('/')[1]+'/'+a.split('/')[2]+'/Desktop')
         return path_desktop
     except:
-        print("Invalid path")
+        print('Invalid path')
         return False
 
 if choose==1:
 
-    path = input("Drag and drop the file ")
+    path = input('Drag and drop the file ')
 
     # Check the path
     while check_path(path) == False:
-        path = input("Drag and drop the file ")
+        path = input('Drag and drop the file ')
     
     # ???
     path_desktop = check_path(path)
 
-    name = input("Enter a name for your file ")
+    name = input('Enter a name for your file ')
 
     # Check the name
     name = str(name)
-    while name.count(".")>1 or name.count("/")>1 or name.count(u"\x5c")>1:
-        print("Invalid name")
-        name = input("Enter a name for your file ")
+    while name.count('.')>=1 or name.count('/')>=1 or name.count(u'\x5c')>=1:
+        print('Invalid name')
+        name = input('Enter a name for your file ')
 
-    path = path.rstrip()+"/Products/Applications"
-    path_ = path.replace(u"\x5c","") 
+    path = path.rstrip()+'/Products/Applications'
+    path_ = path.replace(u'\x5c','') 
     
     # Define the correct file structure
     os.chdir(path_)
-    os.mkdir("Payload")
-    os.system("mv Runner.app Payload")
+    os.mkdir('Payload')
+    os.system('mv Runner.app Payload')
 
     # Create the .ipa file
-    os.system("zip -ru " + name+".ipa Payload")
+    os.system('zip -ru ' + name+'.ipa Payload')
 
     # Define the old file structure
-    os.system("mv Payload/Runner.app Runner.app")
-    os.rmdir("Payload")
+    os.system('mv Payload/Runner.app Runner.app')
+    os.rmdir('Payload')
     os.chdir(path_desktop)
 
     # Create the IPA Export directory
     try:
-        os.mkdir("IPA Export")
+        os.mkdir('IPA Export')
     except:
         pass
-    os.system("mv "+ path + "/" + name+".ipa " + path_desktop+"/IPA\ Export")
+    os.system('mv '+ path + '/' + name+'.ipa ' + path_desktop+'/IPA\ Export')
 
 if choose==2:
-    path = input("Drag and drop the file ")
+    path = input('Drag and drop the file ')
 
     # Check the path
     while check_path(path) == False:
-        path = input("Drag and drop the file ")
+        path = input('Drag and drop the file ')
     
     # ???
     path_desktop = check_path(path)
 
     # Create a folder with the file's name
-    os.chdir(path_desktop+"/IPA Export")
-    name = path.split(".ipa")[0].split("/")
+    os.chdir(path_desktop+'/IPA Export')
+    name = path.split('.ipa')[0].split('/')
     name = name[len(name)-1]
     os.mkdir(name)
     os.chdir(name)
 
     # Unzip the file
-    os.system("tar -xf " + path)
+    os.system('tar -xf ' + path)
 
 if choose == 3:
 
-    url = str(input("Enter a URL "))
-    while url.count("http")==0 or url.count("://")==0:
-        print("Invalid URL")
-        url = input("Enter a URL ")
+    url = str(input('Enter a URL '))
+    while url.count('http')==0 or url.count('://')==0 or url.count('.ipa')==0:
+        print('Invalid URL')
+        url = input('Enter a URL ')
     
-    bundle_identifier = str(input("Enter the bundle identifier "))
-    bundle_version = str(input("Enter the bundle version "))
-    def check_bundle_version(a):
+    bundle_identifier = str(input('Enter the bundle identifier '))
+    while bundle_identifier=="":
+        bundle_identifier = str(input('Enter the bundle identifier '))
+    bundle_version = str(input('Enter the bundle version '))
+    def check_bundle_version(bundle_version):
         for a in bundle_version.split('.'):
             try:
                 a = int(a)
             except:
-                print("Invalid bundle version")
-                return False
+                print('Invalid bundle version')
                 break
             return True
-    while check_bundle_version(bundle_version) == False:
-        bundle_version = str(input("Enter the bundle version "))
+    while check_bundle_version(bundle_version) != True:
+        bundle_version = str(input('Enter the bundle version '))
 
-    title =""
+    title = str(input('Enter the title '))
+    while title.count('.')>=1 or title.count('/')>=1 or title.count(u'\x5c')>=1:
+        print('Invalid title')
+        title = str(input('Enter the title '))
+
     """
     <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
