@@ -1,6 +1,6 @@
 import os
 from rich import print
-
+os.system("clear")
 # Print the title
 print("""
 
@@ -11,7 +11,6 @@ print("""
     ██║██║     ██║  ██║       ██║   ╚██████╔╝╚██████╔╝███████╗███████║
     ╚═╝╚═╝     ╚═╝  ╚═╝       ╚═╝    ╚═════╝  ╚═════╝ ╚══════╝╚══════╝
 
-[bold]GitHub[/bold] : https://github.com/Emilien-B/IPAtools
 By [bold]Emilien BARDE[/bold] (https://twitter.com/emilien_barde)
 """)
 
@@ -19,12 +18,11 @@ print("""
 1. Exporter a file .ipa
 2. Décompresser a file .ipa
 3. CRéer un fichier .plist de téléchargement
+4. Accéder au projet sur GitHub
 
 """)
 choose = int(input("Enter a number..."))
-path_desktop = ""
-# a = input("Drag and drop the file ")
-a = ""
+
 
 def check_path(a):
     # Check the path
@@ -36,7 +34,16 @@ def check_path(a):
         return False
 
 if choose==1:
-    choose_path()
+
+    path = input("Drag and drop the file ")
+
+    # Check the path
+    while check_path(path) == False:
+        path = input("Drag and drop the file ")
+    
+    # ???
+    path_desktop = check_path(path)
+
     name = input("Enter a name for your file ")
 
     # Check the name
@@ -75,10 +82,14 @@ if choose==1:
 
 if choose==2:
     path = input("Drag and drop the file ")
-    print(check_path(path))
+
+    # Check the path
     while check_path(path) == False:
         path = input("Drag and drop the file ")
     
+    # ???
+    path_desktop = check_path(path)
+
     # Create a folder with the file's name
     os.chdir(path_desktop+"/IPA Export")
     name = path.split(".ipa")[0].split("/")
@@ -88,6 +99,11 @@ if choose==2:
 
     # Unzip the file
     os.system("tar -xf " + path)
+if choose == 4:
+    os.system("open https://github.com/Emilien-B/IPAtools")
+    os.system("clear")
+    print("Finished")
+    quit()
 
 # Open the folder
 os.system("open " + path_desktop+"/IPA\ Export")
