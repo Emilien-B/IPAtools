@@ -30,9 +30,11 @@ choose = int(input('Enter a number...'))
 path_desktop = str(subprocess.check_output("pwd", shell=True)).replace("b'",'').replace(u"\x5cn'",'')
 path_desktop = str('/'+path_desktop.split('/')[1]+'/'+path_desktop.split('/')[2]+'/Desktop')
 
+# Check the name file
 def check_name_file(name):
     return not name.count('.')>=1 or name.count('/')>=1 or name.count(u'\x5c')>=1
 
+# Check the path
 def check_path(a):
     try:
         a = a.strip().replace(u"\x5cn'",'')
@@ -40,16 +42,19 @@ def check_path(a):
     except:
         return False
 
-def create_folder():
-    # Create the IPAtools-exports directory
+# Create the IPAtools-exports directory
+def create_directory():
     try:
         os.chdir(path_desktop)
         os.mkdir('IPAtools-exports')
     except:
         pass
 
+# ?
 if choose==1:
-    create_folder()
+
+    create_directory()
+
     path = input('Drag and drop the file ')
 
     # Check the path
@@ -57,6 +62,7 @@ if choose==1:
         print('Invalid path')
         path = input('Drag and drop the file ')
     
+    # Check the file
     while path.count('.xcarchive') == 0:
         print('Invalid file')
         path = input('Drag and drop the file ')
@@ -86,10 +92,13 @@ if choose==1:
     os.rmdir('Payload')
     os.chdir(path_desktop)
 
+    # Move the file
     os.system('mv '+ path + '/' + name+'.ipa ' + path_desktop+'/IPAtools-exports')
 
 if choose==2:
-    create_folder()
+
+    create_directory()
+
     path = input('Drag and drop the file ')
 
     # Check the path
@@ -97,6 +106,7 @@ if choose==2:
         print("Invalid path")
         path = input('Drag and drop the file ')
 
+    # Chech the file
     while path.count('.ipa') == 0:
         print('Invalid file')
         path = input('Drag and drop the file ')
@@ -112,27 +122,33 @@ if choose==2:
     os.system('tar -xf ' + path)
 
 if choose == 3:
-    create_folder()
+
+    create_directory()
+
     url = str(input('Enter a URL '))
+    # Check the URL
     while url.count('http')==0 or url.count('://')==0 or url.count('.ipa')==0:
         print('Invalid URL')
         url = input('Enter a URL ')
     
     bundle_identifier = str(input('Enter the bundle identifier '))
+    # Check the bundle identifier
     while bundle_identifier=="":
         bundle_identifier = str(input('Enter the bundle identifier '))
 
     bundle_version = str(input('Enter the bundle version '))
-   
+    # Check the bundle version
     while bundle_version.replace('.','').isdigit() == False:
         print('Invalid bundle version')
         bundle_version = str(input('Enter the bundle version '))
 
     title = str(input('Enter the title '))
+    # Check the title
     while check_name_file(title) == False:
         print('Invalid title')
         title = str(input('Enter the title '))
 
+    # Generate the file
     plist_file =   """<?xml version="1.0" encoding="UTF-8"?>
     <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
     <plist version="1.0">
@@ -173,12 +189,16 @@ if choose == 3:
         print('Invalid name')
         name = input('Enter a name for your file ')
     
+    # Save the file
     file = open(path_desktop+'/IPAtools-exports/'+name+".plist", 'w')
     file.write(plist_file)
     file.close()
 
 if choose == 4:
+
+    # Open the webpage
     os.system('open https://github.com/Emilien-B/IPAtools')
+    
     os.system('clear')
     print('Finished')
     quit()
