@@ -53,7 +53,7 @@ print("""
     ██║██║     ██║  ██║       ██║   ╚██████╔╝╚██████╔╝███████╗███████║
     ╚═╝╚═╝     ╚═╝  ╚═╝       ╚═╝    ╚═════╝  ╚═════╝ ╚══════╝╚══════╝
 
-By [bold]Emilien BARDE[/bold] (https://twitter.com/emilien_barde)
+By [bold blue]Emilien BARDE[/bold blue] (https://twitter.com/emilien_barde)
 """)
 
 print("""
