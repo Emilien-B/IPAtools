@@ -65,6 +65,7 @@ print("""
 """)
 choose = input('Enter a number...')
 while not check_choose(choose):
+    print('['+error_style+']Invalid choice[/'+error_style+']')
     choose = input('Enter a number...')
 
 
@@ -223,12 +224,11 @@ if choose == 4:
     os.system('open https://github.com/Emilien-B/IPAtools')
 
     os.system('clear')
-    print('Finished')
+    print('[green] :white_heavy_check_mark: Finished[/green]')
     quit()
 
 # Open the folder
 os.system('open ' + path_desktop+'/IPAtools-exports')
 
 os.system('clear')
-print('Finished')
-
+print('[green] :white_heavy_check_mark: Finished[/green]')
