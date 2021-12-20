@@ -57,10 +57,10 @@ By [bold]Emilien BARDE[/bold] (https://twitter.com/emilien_barde)
 """)
 
 print("""
-1. :package: Exporter a file .ipa
-2. :open_file_folder: Décompresser a file .ipa
-3. :down_arrow:  CRéer un fichier .plist de téléchargement
-4. :cat: Accéder au projet sur GitHub
+1. :package: Export a .ipa file
+2. :open_file_folder: Decompress a .ipa file
+3. :down_arrow:  Create a download file .plist
+4. :cat: Access the project on GitHub
 
 """)
 choose = input('Enter a number...')
