@@ -2,7 +2,6 @@ import os
 from rich import print
 from rich.status import Status
 
-
 # Check the name file
 def check_name_file(name):
     return not name.count('.')>=1 or name.count('/')>=1 or name.count(u'\x5c')>=1
@@ -21,7 +20,6 @@ def check_choose(a):
         return a <= 4
     except:
         return False
-
 
 os.system('clear')
 
@@ -61,16 +59,15 @@ choose = int(choose)
 # Get the path of the desktop
 path_desktop = str(os.popen('pwd').read()).replace("b'",'').replace(u"\x5cn'",'').replace('\n','')
 path_desktop = str('/'+path_desktop.split('/')[1]+'/'+path_desktop.split('/')[2]+'/Desktop')
+
 # Create the IPAtools-exports directory
 try:
     print(path_desktop+'/IPAtools-exports')
 except:
     pass
 
-# ?
+# Export a .ipa file
 if choose==1:
-
-    
 
     path = input('Drag and drop the file ')
 
@@ -83,7 +80,6 @@ if choose==1:
     while path.count('.xcarchive') == 0:
         print('['+error_style+']Invalid file[/'+error_style+']')
         path = input('Drag and drop the file ')
-    
 
     name = input('Enter a name for your file ')
 
@@ -112,10 +108,9 @@ if choose==1:
     # Move the file
     os.system('mv '+ path + '/' + name+'.ipa ' + path_desktop+'/IPAtools-exports')
 
+# Decompress a .ipa file
 if choose==2:
     
-    
-
     path = input('Drag and drop the file ')
 
     # Check the path
@@ -138,9 +133,8 @@ if choose==2:
     # Unzip the file
     os.system('tar -xf ' + path)
 
+# Create a download file .plist
 if choose == 3:
-
-    
 
     url = str(input('Enter a URL '))
     # Check the URL
@@ -211,6 +205,7 @@ if choose == 3:
     file.write(plist_file)
     file.close()
 
+# Access the project on GitHub
 if choose == 4:
 
     # Open the webpage
