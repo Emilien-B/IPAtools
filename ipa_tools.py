@@ -34,7 +34,7 @@ def check_choose(a):
 os.system('clear')
 
 # Define styles
-error_style = 'red'
+error_style = 'red bold'
 loading_style = 'blue'
 
 # Display loader
@@ -63,10 +63,10 @@ print("""
 4. :cat: Access the project on GitHub
 
 """)
-choose = input('Enter a number...')
+choose = input('Choose an option...')
 while not check_choose(choose):
     print('['+error_style+']Invalid choice[/'+error_style+']')
-    choose = input('Enter a number...')
+    choose = input('Choose an option...')
 
 
 # Get the path of the desktop
@@ -157,7 +157,7 @@ if choose == 3:
     
     bundle_identifier = str(input('Enter the bundle identifier '))
     # Check the bundle identifier
-    while bundle_identifier=="":
+    while bundle_identifier=='':
         bundle_identifier = str(input('Enter the bundle identifier '))
 
     bundle_version = str(input('Enter the bundle version '))
@@ -214,7 +214,7 @@ if choose == 3:
         name = input('Enter a name for your file ')
     
     # Save the file
-    file = open(path_desktop+'/IPAtools-exports/'+name+".plist", 'w')
+    file = open(path_desktop+'/IPAtools-exports/'+name+'.plist', 'w')
     file.write(plist_file)
     file.close()
 
