@@ -1,34 +1,7 @@
 import os
-import subprocess
 from rich import print
+from rich.status import Status
 
-os.system('clear')
-
-# Print the title
-print("""
-
-    ██╗██████╗  █████╗     ████████╗ ██████╗  ██████╗ ██╗     ███████╗
-    ██║██╔══██╗██╔══██╗    ╚══██╔══╝██╔═══██╗██╔═══██╗██║     ██╔════╝
-    ██║██████╔╝███████║       ██║   ██║   ██║██║   ██║██║     ███████╗
-    ██║██╔═══╝ ██╔══██║       ██║   ██║   ██║██║   ██║██║     ╚════██║
-    ██║██║     ██║  ██║       ██║   ╚██████╔╝╚██████╔╝███████╗███████║
-    ╚═╝╚═╝     ╚═╝  ╚═╝       ╚═╝    ╚═════╝  ╚═════╝ ╚══════╝╚══════╝
-
-By [bold]Emilien BARDE[/bold] (https://twitter.com/emilien_barde)
-""")
-
-print("""
-1. Exporter a file .ipa
-2. Décompresser a file .ipa
-3. CRéer un fichier .plist de téléchargement
-4. Accéder au projet sur GitHub
-
-""")
-choose = int(input('Enter a number...'))
-
-# Get the path of the desktop
-path_desktop = str(subprocess.check_output("pwd", shell=True)).replace("b'",'').replace(u"\x5cn'",'')
-path_desktop = str('/'+path_desktop.split('/')[1]+'/'+path_desktop.split('/')[2]+'/Desktop')
 
 # Check the name file
 def check_name_file(name):
@@ -50,6 +23,56 @@ def create_directory():
     except:
         pass
 
+def check_choose(a):
+    try:
+        a = int(a)
+        return a <= 4
+    except:
+        return False
+
+
+os.system('clear')
+
+# Define styles
+error_style = 'red'
+loading_style = 'blue'
+
+# Display loader
+with Status('['+loading_style+']Waiting[/'+loading_style+']', spinner='aesthetic', spinner_style=loading_style):
+    # Install rich
+    os.system('pip install rich')
+os.system('clear')
+
+# Print the title
+print("""
+
+    ██╗██████╗  █████╗     ████████╗ ██████╗  ██████╗ ██╗     ███████╗
+    ██║██╔══██╗██╔══██╗    ╚══██╔══╝██╔═══██╗██╔═══██╗██║     ██╔════╝
+    ██║██████╔╝███████║       ██║   ██║   ██║██║   ██║██║     ███████╗
+    ██║██╔═══╝ ██╔══██║       ██║   ██║   ██║██║   ██║██║     ╚════██║
+    ██║██║     ██║  ██║       ██║   ╚██████╔╝╚██████╔╝███████╗███████║
+    ╚═╝╚═╝     ╚═╝  ╚═╝       ╚═╝    ╚═════╝  ╚═════╝ ╚══════╝╚══════╝
+
+By [bold]Emilien BARDE[/bold] (https://twitter.com/emilien_barde)
+""")
+
+print("""
+1. :package: Exporter a file .ipa
+2. :open_file_folder: Décompresser a file .ipa
+3. :down_arrow:  CRéer un fichier .plist de téléchargement
+4. :cat: Accéder au projet sur GitHub
+
+""")
+choose = input('Enter a number...')
+while not check_choose(choose):
+    choose = input('Enter a number...')
+
+
+# Get the path of the desktop
+
+path_desktop = str(os.popen('pwd').read()).replace("b'",'').replace(u"\x5cn'",'')
+path_desktop = str('/'+path_desktop.split('/')[1]+'/'+path_desktop.split('/')[2]+'/Desktop')
+
 # ?
 if choose==1:
 
@@ -58,13 +81,13 @@ if choose==1:
     path = input('Drag and drop the file ')
 
     # Check the path
-    while check_path(path) == False:
-        print('Invalid path')
+    while not check_path(path):
+        print('['+error_style+']Invalid path[/'+error_style+']')
         path = input('Drag and drop the file ')
     
     # Check the file
     while path.count('.xcarchive') == 0:
-        print('Invalid file')
+        print('['+error_style+']Invalid file[/'+error_style+']')
         path = input('Drag and drop the file ')
     
 
@@ -72,8 +95,8 @@ if choose==1:
 
     # Check the name
     name = str(name)
-    while check_name_file(name) == False:
-        print('Invalid name')
+    while not check_name_file(name):
+        print('['+error_style+']Invalid name[/'+error_style+']')
         name = input('Enter a name for your file ')
 
     path = path.rstrip()+'/Products/Applications'
@@ -102,13 +125,13 @@ if choose==2:
     path = input('Drag and drop the file ')
 
     # Check the path
-    while check_path(path) == False:
-        print("Invalid path")
+    while not check_path(path):
+        print('['+error_style+']Invalid path[/'+error_style+']')
         path = input('Drag and drop the file ')
 
     # Chech the file
     while path.count('.ipa') == 0:
-        print('Invalid file')
+        print('['+error_style+']Invalid file[/'+error_style+']')
         path = input('Drag and drop the file ')
 
     # Create a folder with the file's name
@@ -128,7 +151,7 @@ if choose == 3:
     url = str(input('Enter a URL '))
     # Check the URL
     while url.count('http')==0 or url.count('://')==0 or url.count('.ipa')==0:
-        print('Invalid URL')
+        print('['+error_style+']Invalid URL[/'+error_style+']')
         url = input('Enter a URL ')
     
     bundle_identifier = str(input('Enter the bundle identifier '))
@@ -138,14 +161,14 @@ if choose == 3:
 
     bundle_version = str(input('Enter the bundle version '))
     # Check the bundle version
-    while bundle_version.replace('.','').isdigit() == False:
-        print('Invalid bundle version')
+    while not bundle_version.replace('.','').isdigit():
+        print('['+error_style+']Invalid bundle version[/'+error_style+']')
         bundle_version = str(input('Enter the bundle version '))
 
     title = str(input('Enter the title '))
     # Check the title
-    while check_name_file(title) == False:
-        print('Invalid title')
+    while not check_name_file(title):
+        print('['+error_style+']Invalid title[/'+error_style+']')
         title = str(input('Enter the title '))
 
     # Generate the file
@@ -185,8 +208,8 @@ if choose == 3:
 
     # Check the name
     name = str(name)
-    while check_name_file(name) == False:
-        print('Invalid name')
+    while not check_name_file(name):
+        print('['+error_style+']Invalid name[/'+error_style+']')
         name = input('Enter a name for your file ')
     
     # Save the file
@@ -198,7 +221,7 @@ if choose == 4:
 
     # Open the webpage
     os.system('open https://github.com/Emilien-B/IPAtools')
-    
+
     os.system('clear')
     print('Finished')
     quit()
