@@ -15,14 +15,6 @@ def check_path(a):
     except:
         return False
 
-# Create the IPAtools-exports directory
-def create_directory():
-    try:
-        os.chdir(path_desktop)
-        os.mkdir('IPAtools-exports')
-    except:
-        pass
-
 def check_choose(a):
     try:
         a = int(a)
@@ -38,7 +30,7 @@ error_style = 'red bold'
 loading_style = 'blue'
 
 # Display loader
-with Status('['+loading_style+']Waiting[/'+loading_style+']', spinner='aesthetic', spinner_style=loading_style):
+with Status('['+loading_style+']Waiting \n [/'+loading_style+']', spinner='aesthetic', spinner_style=loading_style):
     # Install rich
     os.system('pip install rich')
 os.system('clear')
@@ -54,30 +46,31 @@ print("""
     ╚═╝╚═╝     ╚═╝  ╚═╝       ╚═╝    ╚═════╝  ╚═════╝ ╚══════╝╚══════╝
 
 By [bold blue]Emilien BARDE[/bold blue] (https://twitter.com/emilien_barde)
-""")
 
-print("""
 1. :package: Export a .ipa file
 2. :open_file_folder: Decompress a .ipa file
 3. :down_arrow:  Create a download file .plist
 4. :cat: Access the project on GitHub
-
 """)
 choose = input('Choose an option...')
 while not check_choose(choose):
     print('['+error_style+']Invalid choice[/'+error_style+']')
     choose = input('Choose an option...')
-
+choose = int(choose)
 
 # Get the path of the desktop
-
-path_desktop = str(os.popen('pwd').read()).replace("b'",'').replace(u"\x5cn'",'')
+path_desktop = str(os.popen('pwd').read()).replace("b'",'').replace(u"\x5cn'",'').replace('\n','')
 path_desktop = str('/'+path_desktop.split('/')[1]+'/'+path_desktop.split('/')[2]+'/Desktop')
+# Create the IPAtools-exports directory
+try:
+    print(path_desktop+'/IPAtools-exports')
+except:
+    pass
 
 # ?
 if choose==1:
 
-    create_directory()
+    
 
     path = input('Drag and drop the file ')
 
@@ -120,8 +113,8 @@ if choose==1:
     os.system('mv '+ path + '/' + name+'.ipa ' + path_desktop+'/IPAtools-exports')
 
 if choose==2:
-
-    create_directory()
+    
+    
 
     path = input('Drag and drop the file ')
 
@@ -147,7 +140,7 @@ if choose==2:
 
 if choose == 3:
 
-    create_directory()
+    
 
     url = str(input('Enter a URL '))
     # Check the URL
