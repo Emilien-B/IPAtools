@@ -1,6 +1,11 @@
 import os
 from rich import print
 from rich.status import Status
+from pyfade import Fade,Colors
+
+# Print 'Finished'
+def print_finised():
+    print('[green] :white_heavy_check_mark: Finished[/green]')
 
 # Check the name file
 def check_name_file(name):
@@ -35,15 +40,26 @@ os.system('clear')
 
 # Print the title
 print("""
+[cyan]
+  ___ ____   _      _              _     
+ |_ _|  _ \ / \    | |_ ___   ___ | |___ 
+  | || |_) / _ \   | __/ _ \ / _ \| / __|
+  | ||  __/ ___ \  | || (_) | (_) | \__ \x5c
+ |___|_| /_/   \_\ |___\___/ \___/|_|___/                            
+[/cyan]""")
 
+# Print the title
+print("""
+[cyan]
     ██╗██████╗  █████╗     ████████╗ ██████╗  ██████╗ ██╗     ███████╗
     ██║██╔══██╗██╔══██╗    ╚══██╔══╝██╔═══██╗██╔═══██╗██║     ██╔════╝
     ██║██████╔╝███████║       ██║   ██║   ██║██║   ██║██║     ███████╗
     ██║██╔═══╝ ██╔══██║       ██║   ██║   ██║██║   ██║██║     ╚════██║
     ██║██║     ██║  ██║       ██║   ╚██████╔╝╚██████╔╝███████╗███████║
     ╚═╝╚═╝     ╚═╝  ╚═╝       ╚═╝    ╚═════╝  ╚═════╝ ╚══════╝╚══════╝
+[/cyan]""")
 
-By [bold blue]Emilien BARDE[/bold blue] (https://twitter.com/emilien_barde)
+print("""By [bold blue]Emilien BARDE[/bold blue] (https://twitter.com/emilien_barde)
 
 1. :package: Export a .ipa file
 2. :open_file_folder: Decompress a .ipa file
@@ -62,7 +78,7 @@ path_desktop = str('/'+path_desktop.split('/')[1]+'/'+path_desktop.split('/')[2]
 
 # Create the IPAtools-exports directory
 try:
-    print(path_desktop+'/IPAtools-exports')
+    os.mkdir(path_desktop+'/IPAtools-exports')
 except:
     pass
 
@@ -108,6 +124,9 @@ if choose==1:
     # Move the file
     os.system('mv '+ path + '/' + name+'.ipa ' + path_desktop+'/IPAtools-exports')
 
+    os.system('clear')
+    print_finised()
+
 # Decompress a .ipa file
 if choose==2:
     
@@ -132,6 +151,8 @@ if choose==2:
 
     # Unzip the file
     os.system('tar -xf ' + path)
+    os.system('clear')
+    print_finised()
 
 # Create a download file .plist
 if choose == 3:
@@ -205,6 +226,21 @@ if choose == 3:
     file.write(plist_file)
     file.close()
 
+    print("""[white]
+╭──────────────────────────────────────────────────── ❗IMPORTANT❗ ─────────────────────────────────────────────────────╮
+│                                                                                                                        │
+│                             Le fichier doit obligatoirement être renommer manifest.plist.                              │
+│                                                                                                                        │
+│                                         URL d'installation de l'application :                                          │
+│                  itms-services://?action=download-manifest&url=https://url_du_fichier_manifest.plist                   │
+│                                                                                                                        │
+│                Share this link to your testers or friends, they will be able to install the .ipa file.                 │
+╰────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+[/white]""")
+    input("It's ok ?")
+
+    print_finised()
+
 # Access the project on GitHub
 if choose == 4:
 
@@ -212,11 +248,9 @@ if choose == 4:
     os.system('open https://github.com/Emilien-B/IPAtools')
 
     os.system('clear')
-    print('[green] :white_heavy_check_mark: Finished[/green]')
+    print_finised()
     quit()
 
 # Open the folder
 os.system('open ' + path_desktop+'/IPAtools-exports')
 
-os.system('clear')
-print('[green] :white_heavy_check_mark: Finished[/green]')
