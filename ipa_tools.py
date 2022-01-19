@@ -1,7 +1,24 @@
 import os
-from rich import print
-from rich.status import Status
-from pyfade import Fade,Colors
+
+# Define styles
+error_style = 'red bold'
+loading_style = 'blue'
+
+try:
+    from rich import print
+    from rich.status import Status
+    from pyfade import Fade,Colors
+except:
+    # Display loader
+    with Status('['+loading_style+']Waiting \n [/'+loading_style+']', spinner='aesthetic', spinner_style=loading_style):
+        # Install rich
+        os.system('pip install rich')
+    try:
+        from rich import print
+        from rich.status import Status
+        from pyfade import Fade,Colors
+    except:
+        print('['+error_style+']rich package needed[/'+error_style+']')
 
 # Print 'Finished'
 def print_finised():
@@ -28,15 +45,6 @@ def check_choose(a):
 
 os.system('clear')
 
-# Define styles
-error_style = 'red bold'
-loading_style = 'blue'
-
-# Display loader
-with Status('['+loading_style+']Waiting \n [/'+loading_style+']', spinner='aesthetic', spinner_style=loading_style):
-    # Install rich
-    os.system('pip install rich')
-os.system('clear')
 
 # Print the title
 print("""
