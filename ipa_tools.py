@@ -46,15 +46,7 @@ def check_choose(a):
 os.system('clear')
 
 
-# Print the title
-print("""
-[cyan]
-  ___ ____   _      _              _     
- |_ _|  _ \ / \    | |_ ___   ___ | |___ 
-  | || |_) / _ \   | __/ _ \ / _ \| / __|
-  | ||  __/ ___ \  | || (_) | (_) | \__ \x5c
- |___|_| /_/   \_\ |___\___/ \___/|_|___/                            
-[/cyan]""")
+
 
 # Print the title
 print("""
