@@ -1,1 +1,0 @@
-print(open('/Users/emilienbarde/Desktop/IPA Export/test.ipa', 'w'))
