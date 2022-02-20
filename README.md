@@ -1,14 +1,20 @@
 # 📖 Présentation
-**IPAtools** est un petit programme python qui permet de gérér une archive [**Xcode**](https://developer.apple.com/xcode/) en fichier .ipa (compatible iOS) rapidement.
-Le programme est uniquement compatible [**MacOS**](https://apple.com/fr/macos/)
+**IPAtools** est un petit programme python qui permet de gérér des fichier .ipa (compatible iOS) rapidement.
+
+- Générer un fichier .ipa à partir une archive [Xcode](https://developer.apple.com/xcode/)
+- Décompresser un fichier .ipa
+- Créer un fichier de téléchargement .plist
 
 <img src="exemple.png"></img>
+
 
 # ⚙️ Utilisation
 Lancer le programme dans un terminal :
 ```
 python ipa_tools.py
 ```
+
+⚠️ Le programme est uniquement compatible [**MacOS**](https://apple.com/fr/macos/).
 
 # ⚖️ Politique d'Apple
 
